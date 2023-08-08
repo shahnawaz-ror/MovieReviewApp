@@ -44,8 +44,7 @@ rails db:create db:migrate
 ### Run rake task to import movies and review
 
 ```ruby
-rake import:movies
-rake import:import_reviews
+rake import:import_movies_and_reviews
 ```
 
 ### Start rails server
