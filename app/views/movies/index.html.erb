@@ -1,0 +1,37 @@
+<div class="container py-5">
+  <header class="text-center mb-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <%= form_tag(movies_path, method: :get, class: 'input-group mb-3') do %>
+          <%= text_field_tag :actor_name, params[:actor_name], class: 'form-control', placeholder: 'Search by Actor name' %>
+          <button type="submit" class="btn btn-info">Search</button>
+        <% end %>
+      </div>
+    </div>
+  </header>
+
+  <h2 class="font-weight-bold mb-4">Movies with Reviews</h2>
+  <div class="row">
+    <% @movies.in_groups_of(4).each do |movies_data| %>
+      <% movies_data.compact.each do |data| %>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="card rounded shadow-sm border-0">
+            <div class="card-body p-4 border">
+              <h5 class="card-title"><a  href="/movies/<%= data.id %>" class="text-dark"><%= data.title %></a></h5>
+              <p class="card-text">
+                <span class="font-weight-bold">Actor:</span> <%= data.actor %><br>
+              </p>
+              <p class="small text-muted font-italic"><%= data.description %></p>
+              <%= form_tag(rate_movie_path(data), method: :post, remote: true) do %>
+                <%= rating_for data, "review" %>
+                <%= label_tag :review, "Add Review:" %>
+                <%= text_area_tag :review , nil, class: 'form-control' %>
+                <%= submit_tag "Rate", class: 'btn btn-primary mt-2' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

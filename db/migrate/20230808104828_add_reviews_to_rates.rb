@@ -1,0 +1,5 @@
+class AddReviewsToRates < ActiveRecord::Migration[7.0]
+  def change
+    add_column :rates, :reviews, :text
+  end
+end
